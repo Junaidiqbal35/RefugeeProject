@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+
+<div class="row">
+    {% for accommodation_data in accommodation_object %}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                      <a href="{% url 'detail_accommodation' accommodation_data.id %}">
+                          <h5 class="card-title">{{ accommodation_data.name }}</h5></a>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ accommodation_data.payment_method }}</h6>
+                    <p class="card-text">{{ accommodation_data.address }}</p>
+                    <p href="#" class="card-link">{{ accommodation_data.city }}</p>
+                    <p href="#" class="card-link">{{ accommodation_data.day_available }}</p>
+                    <p href="#" class="card-link">{{ accommodation_data.num_of_guests }}</p>
+
+                  </div>
+                </div>
+
+        </div>
+    {% endfor %}
+</div>
+
+
+</div>
+
+
+
+{% endblock content %}

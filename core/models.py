@@ -1,11 +1,10 @@
 from django.db import models
 
-
 # Create your models here.
 from accounts.models import User
 
 
-class  Accommodation(models.Model):
+class Accommodation(models.Model):
     PAYMENT_METHOD = (
         (1, 'Free'),
         (2, 'Fixed Price'),
@@ -14,6 +13,7 @@ class  Accommodation(models.Model):
 
     name = models.CharField(max_length=80)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    available = models.BooleanField(default=True)
     city = models.CharField(max_length=200)
     num_of_guests = models.IntegerField(max_length=200)
     address = models.CharField(max_length=1000)
