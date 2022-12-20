@@ -2,16 +2,55 @@
 {% load crispy_forms_filters %}
 {% block content %}
     <div class="container">
+         {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
 
         <div class="row">
             <div class="col-md-8">
-                 <form action="{% url 'signup' %}" method="post">
-        {% csrf_token %}
+                <form action="{% url 'signup' %}" method="post">
+                    {% csrf_token %}
+                    <div id="div_id_username" class="form-group"><label for="id_username" class=" requiredField">
+                        Username<span class="asteriskField">*</span> </label>
+                        <div><input type="text" name="username" maxlength="150" class="textinput textInput form-control"
+                                    required id="id_username"> <small id="hint_id_username"
+                                                                      class="form-text text-muted"></small></div>
+                    </div>
+                    <div id="div_id_first_name" class="form-group"><label for="id_first_name" class=" requiredField">
+                        First name<span class="asteriskField">*</span> </label>
+                        <div><input type="text" name="first_name" maxlength="30"
+                                    class="textinput textInput form-control" required id="id_first_name"></div>
+                    </div>
+                    <div id="div_id_last_name" class="form-group"><label for="id_last_name" class=" requiredField">
+                        Last name<span class="asteriskField">*</span> </label>
+                        <div><input type="text" name="last_name" maxlength="30" class="textinput textInput form-control"
+                                    required id="id_last_name"></div>
+                    </div>
+                    <div id="div_id_email" class="form-group"><label for="id_email" class=" requiredField">
+                        Email<span class="asteriskField">*</span> </label>
+                        <div><input type="email" name="email" maxlength="254" autofocus class="emailinput form-control"
+                                    required id="id_email"></div>
+                    </div>
+                    <div id="div_id_password1" class="form-group"><label for="id_password1" class=" requiredField">
+                        Password<span class="asteriskField">*</span> </label>
+                        <div><input type="password" name="password1" autocomplete="new-password"
+                                    class="textinput textInput form-control" required id="id_password1"> <small
+                                id="hint_id_password1" class="form-text text-muted">
 
-           {{ form|crispy }}
-           <button class="btn btn-dark mt-5" type="submit"> Login</button>
+                        </small></div>
+                    </div>
+                    <div id="div_id_password2" class="form-group"><label for="id_password2" class=" requiredField">
+                        Password confirmation<span class="asteriskField">*</span> </label>
+                        <div><input type="password" name="password2" autocomplete="new-password"
+                                    class="textinput textInput form-control" required id="id_password2"> <small
+                                id="hint_id_password2" class="form-text text-muted">Enter the same password as before,
+                            for verification.</small></div>
+                    </div>
 
-    </form>
+
+                    <button class="btn btn-dark mt-5" type="submit"> Sign Up</button>
+
+                </form>
             </div>
         </div>
     </div>

@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from django.views.generic import CreateView, DetailView, ListView
-
-from core.forms import AccommodationForm
-from core.models import Accommodation
+from accounts.models import User
+from core.forms import AccommodationForm, BookingForm, UpdateAccommodationForm
+from core.models import Accommodation, Booking
 
 
 @login_required
@@ -33,27 +33,93 @@ def accommodation_create(request):
                       'form': form})
 
 
-class AccommodationList(LoginRequiredMixin, ListView):
-    template_name = "core/index.html"
+def accommodation_list(request):
     queryset = Accommodation.objects.filter(available=True)
-    context_object_name = 'accommodation_object'
-    model = Accommodation
+    return render(request,
+                  'core/index.html',
+                  {'accommodation_object': queryset})
 
 
-class CreateAccommodationView(LoginRequiredMixin, CreateView):
-    model = Accommodation
-    form_class = AccommodationForm
-    template_name = 'core/create_accommodation.html'
+def accommodation_detail(request, pk):
+    try:
+        accommodation = Accommodation.objects.get(id=pk)
+    except accommodation.DoesNotExist:
+        raise Http404("No Accommodation found.")
+    return render(request,
+                  'core/accommodation_detail.html',
+                  {'accommodation_object': accommodation})
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.save()
-        return redirect('/')
+
+def accommodation_search(request):
+    if request.GET.get('search'):
+        query = request.GET.get('search')
+
+        results = Accommodation.objects.filter(Q(city__icontains=query) | Q(num_of_guests__icontains=query))
+        return render(request,
+                      'core/index.html',
+                      {
+                          'query': query,
+                          'accommodation_object': results})
+
+    if request.GET.get('payment_method'):
+        payment_method = request.GET.get('payment_method')
+
+        results = Accommodation.objects.filter(payment_method=payment_method)
+        return render(request,
+                      'core/index.html',
+                      {
+                          'query': payment_method,
+                          'accommodation_object': results})
 
 
-class AccommodationDetailView(DetailView):
-    template_name = "core/accommodation_detail.html"
-    queryset = Accommodation.objects.all()
-    context_object_name = 'accommodation_object'
-    slug_field = 'pk'
-    model = Accommodation
+@login_required
+def booking_accommodation(request, pk):
+    if request.method == 'POST':
+        # form is sent
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            # form data is valid
+            # getting the accommodation object
+            accommodation_obj = Accommodation.objects.get(id=pk)
+            booking_form = form.save(commit=False)
+            # assign current user to the item and accommodation obj
+            booking_form.accommodation = accommodation_obj
+            booking_form.user = request.user
+            booking_form.save()
+            messages.success(request,
+                             'reservation request sent successfully.')
+            # redirect to new created item detail view
+            return redirect('/')
+    else:
+        form = AccommodationForm
+    return render(request,
+                  'core/create_accommodation.html',
+                  {
+                      'form': form})
+
+
+@login_required
+def edit_accommodation(request, pk):
+    accommodation_obj = Accommodation.objects.get(id=pk)
+    if request.method == 'POST':
+
+        update_form = UpdateAccommodationForm(instance=accommodation_obj,
+                                              data=request.POST)
+        if update_form.is_valid():
+            update_form.save()
+    else:
+        update_form = UpdateAccommodationForm(instance=accommodation_obj)
+    return render(request,
+                  'core/update_form.html',
+                  {'update_form': update_form})
+
+
+def user_sending_booking_request(request):
+    user_obj = User.objects.get(email=request.user.email)
+    user_booking_list = user_obj.user_booking.all()
+    print(user_booking_list)
+    return render(request,
+                  'core/user_reservation_request_page.html',
+                  {'user_booking_request_data': user_booking_list})
+
+

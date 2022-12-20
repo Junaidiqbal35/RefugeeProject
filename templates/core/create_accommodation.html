@@ -9,11 +9,60 @@
             <div class="col-md-7">
 
 
-                 <form action="." method="post">
+                <form action="." method="post">
                     {% csrf_token %}
-                        {{ form|crispy }}
-                    <button class="btn btn-dark mt-3" type="submit"> Save </button>
-                </form>
+                    
+                        <div id="div_id_name" class="form-group"><label for="id_name" class=" requiredField">
+                            Name<span class="asteriskField">*</span> </label>
+                            <div><input type="text" name="name" maxlength="80" class="textinput textInput form-control"
+                                        required="" id="id_name"></div>
+                        </div>
+                        <div class="form-group">
+                            <div id="div_id_available" class="form-check"><input type="checkbox" name="available"
+                                                                                 class="checkboxinput form-check-input"
+                                                                                 id="id_available" checked=""> <label
+                                    for="id_available" class="form-check-label">
+                                Available
+                            </label></div>
+                        </div>
+                        <div id="div_id_city" class="form-group"><label for="id_city" class=" requiredField">
+                            City<span class="asteriskField">*</span> </label>
+                            <div><input type="text" name="city" maxlength="200" class="textinput textInput form-control"
+                                        required="" id="id_city"></div>
+                        </div>
+                        <div id="div_id_num_of_guests" class="form-group"><label for="id_num_of_guests"
+                                                                                 class=" requiredField">
+                            Num of guests<span class="asteriskField">*</span> </label>
+                            <div><input type="number" name="num_of_guests" class="numberinput form-control" required=""
+                                        id="id_num_of_guests"></div>
+                        </div>
+                        <div id="div_id_address" class="form-group"><label for="id_address" class=" requiredField">
+                            Address<span class="asteriskField">*</span> </label>
+                            <div><input type="text" name="address" maxlength="1000"
+                                        class="textinput textInput form-control" required="" id="id_address"></div>
+                        </div>
+                        <div id="div_id_day_available" class="form-group"><label for="id_day_available"
+                                                                                 class=" requiredField">
+                            Day available<span class="asteriskField">*</span> </label>
+                            <div><input type="text" name="day_available" maxlength="200"
+                                        class="textinput textInput form-control" required="" id="id_day_available">
+                            </div>
+                        </div>
+                        <div id="div_id_payment_method" class="form-group"><label for="id_payment_method"
+                                                                                  class=" requiredField">
+                            Payment method<span class="asteriskField">*</span> </label>
+                            <div><select name="payment_method" class="select form-control" required=""
+                                         id="id_payment_method">
+                                <option value="" selected="">---------</option>
+                                <option value="1">Free</option>
+                                <option value="2">Fixed Price</option>
+                                <option value="3">Any Amount</option>
+
+                            </select></div>
+                        </div>
+
+                        <button class="btn btn-dark mt-3" type="submit"> Save</button>
+                    </form>
 
             </div>
         </div>

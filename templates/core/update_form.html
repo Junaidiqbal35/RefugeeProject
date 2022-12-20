@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+
+                <form action="{% url 'update_accommodation' 1 %}" method="post">
+
+                    {% csrf_token %}
+                    {{ update_form|crispy }}
+                    <button type="submit" class="btn btn-dark"> Save</button>
+
+                </form>
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+{% endblock content %}

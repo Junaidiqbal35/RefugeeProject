@@ -1,11 +1,98 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-8">
 
-    {{ accommodation_object.city }}
-    {{ accommodation_object.available }}
-    {{ accommodation_object.address }}
-    {{ accommodation_object.payment_method }}
+                <div class="card text-white " style="max-width: 50rem; max-height: content-box">
+                    <div class="card-header bg-light">
+                        <div class='text-center'>
+                        <h1 class='text-dark text-center mt-1 mb-1 pt-4 pb-4 fw-lighter'>Details</h1>
+                        </div>
+                    </div>
+
+                              <div class="card-body">
+
+                                <div class="card-title">
+
+                                     <div class='text-dark fw-light'>
+                                        <label>Name</label>
+                                        <h2>
+                                            {{ accommodation_object.name }}</h2>
+                                    </div>
+
+                                    <div class='text-dark fw-light'>
+                                        <label>City</label>
+                                        <h2>
+                                            {{ accommodation_object.city }}</h2>
+                                    </div><hr>
+                                    <div class='text-dark fw-light'>
+                                        <label>Available</label>
+                                        <h2 >
+                                            {{ accommodation_object.available }}</h2>
+                                    </div><hr>
+                                      <div class='text-dark fw-light'>
+                                        <label>Number of Guests</label>
+                                        <h2 >
+                                            {{ accommodation_object.num_of_guests }}</h2>
+                                    </div><hr>
+
+                                    <div class='text-dark fw-light'>
+                                        <label>Address</label>
+                                        <h2 >
+                                            {{ accommodation_object.address }}</h2>
+                                    </div><hr>
+                                    <div class='text-dark fw-light'>
+                                        <label>Payment Method</label>
+                                        <h2>
+                                            {{ accommodation_object.get_payment_method_display }}</h2>
+                                    </div>
+
+                                </div>
+
+                              </div>
+                            </div>
 
 
+                </div>
+
+          <div class="col-md-4">
+        <form action="{% url 'booking' accommodation_object.pk %}"  method="post" >
+            {% csrf_token %}
+
+            <div class="col">
+                <h1>Add Booking Detail</h1>
+            </div>
+            <div class="col">
+                <div class="col">
+
+                    <div class="col mt-2">
+                        <label for="first_day" class="form-label">First Day</label>
+                        <input type="date" name="first_day" class="form-control" placeholder="Day 1">
+                    </div>
+                    <div class="col mt-2">
+                        <label for="last_day" class="form-label">Last Day</label>
+                        <input type="date" name="last_day" class="form-control" placeholder="Day 50">
+                    </div>
+
+
+                    <div class="col mt-2">
+                        <label for="num_of_guests" class="form-label">Number of Guests</label>
+                        <input type="text" name="num_of_guests" class="form-control" placeholder="Number of guests">
+                    </div>
+
+
+                    <div class="col-md-4 mt-2">
+                        <button type="submit" class="btn btn btn-outline-success btn-sm border-warning rounded-pill">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+          </div>
+        </div>
+    </div>
 {% endblock content %}

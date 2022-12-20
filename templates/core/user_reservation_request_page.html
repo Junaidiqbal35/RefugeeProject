@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-2" >
+   <h1 class='text-dark text-center mt-1 mb-1 pt-4 pb-4 fw-lighter'>Booking Request Sent </h1>
+        {% for data in user_booking_request_data %}
+        <div class="card mb-8">
+            <div class="card-header bg-light">
+            </div>
+      <div class="row g-0">
+        <div class="col-md-8">
+          <div class="card-body">
+              <h5 class="card-title">
+                <div class='text-dark fw-light'>
+                    <a href="{% url 'detail_accommodation' data.accommodation.id %}">
+                    <label>Name</label>
+                    <p>
+                        {{ data.accommodation.name }}</p>
+                    </a>
+                </div></h5><hr>
+                <div class='text-dark fw-light'>
+                    <label>City</label>
+                    <p >
+                        {{ data.accommodation.city }}</p>
+                </div><hr>
+                <div class='text-dark fw-light'>
+                    <label >Address</label>
+                    <p >
+                        {{ data.accommodation.address }}</p>
+                </div><hr>
+                <div class='text-dark fw-light'>
+                    <label>Payment Method</label>
+                    <p>
+                        {{ data.accommodation.get_payment_method_display }}</p>
+                </div><hr>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+        </div>
+
+
+{% endblock content %}

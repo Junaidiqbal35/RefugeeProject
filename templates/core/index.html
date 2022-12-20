@@ -4,6 +4,34 @@
 <div class="container">
 
 <div class="row">
+     <form action="{% url 'accommodation_search' %}" method="get">
+           <div class="row height d-flex justify-content-center align-items-center">
+               <div class="col-md-12 mb-4 search">
+                     <i class="fa fa-search" style="color: #17a2b8;"></i>
+                     <div id="div_id_payment_method" class="form-group"><label for="id_payment_method"
+                                                                                  class=" requiredField">
+                            Payment method</label>
+                            <div><select name="payment_method" class="select form-control" required=""
+                                         id="id_payment_method">
+                                <option value="" selected="">---------</option>
+                                <option value="1">Free</option>
+                                <option value="2">Fixed Price</option>
+                                <option value="3">Any Amount</option>
+
+                            </select></div>
+                        </div>
+
+
+
+                    <input type="search" class="form-control" name="search" placeholder="Search By Price, Num of Guests, City.. ">
+               </div>
+
+
+            </div>
+               <button type="submit" class="sch btn btn-md btn-dark">Search</button>
+        </form>
+
+
     {% for accommodation_data in accommodation_object %}
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">

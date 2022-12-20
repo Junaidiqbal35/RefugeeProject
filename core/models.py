@@ -12,10 +12,10 @@ class Accommodation(models.Model):
     )
 
     name = models.CharField(max_length=80)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_accommodation')
     available = models.BooleanField(default=True)
     city = models.CharField(max_length=200)
-    num_of_guests = models.IntegerField(max_length=200)
+    num_of_guests = models.IntegerField()
     address = models.CharField(max_length=1000)
     day_available = models.CharField(max_length=200)
     payment_method = models.PositiveSmallIntegerField(choices=PAYMENT_METHOD)
@@ -26,10 +26,10 @@ class Accommodation(models.Model):
 
 class Booking(models.Model):
     accommodation = models.ForeignKey(Accommodation, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    num_of_guests = models.IntegerField(max_length=200)
-    first_day = models.CharField(max_length=200)
-    last_day = models.CharField(max_length=80)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_booking')
+    num_of_guests = models.IntegerField()
+    first_day = models.DateField()
+    last_day = models.DateField()
 
     def __str__(self):
-        return f'Booking done by {self.user.first_name} on {self.accommodation.name}. '
+        return f'Booking done by {self.user.first_name} on {self.accommodation.name}.'

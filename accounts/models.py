@@ -6,13 +6,15 @@ from django.db import models
 # Create your models here.
 # Custom User Manager for email field login
 class UserManager(BaseUserManager):
-    def create_user(self, email, username, password=None):
+    def create_user(self, first_name, last_name, email, username, password=None):
         if not email:
             raise ValueError("email is required")
         email = self.normalize_email(email)
         user = self.model(
             email=self.normalize_email(email),
             username=username,
+            first_name=first_name,
+            last_name=last_name
         )
 
         user.set_password(password)
