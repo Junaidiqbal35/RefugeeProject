@@ -1,5 +1,17 @@
-{% extends 'base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Refugee </title>
+
+</head>
+
+<body>
+
 <div class="container mt-2" >
    <h1 class='text-dark text-center mt-1 mb-1 pt-4 pb-4 fw-lighter'>Booking Request Sent </h1>
         {% for data in user_booking_request_data %}
@@ -40,5 +52,7 @@
     {% endfor %}
         </div>
 
-
-{% endblock content %}
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
